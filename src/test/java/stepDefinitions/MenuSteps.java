@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import pages.HomePage;
 
+import java.util.Objects;
+
 public class MenuSteps {
 
     private final WebDriver driver;
@@ -141,16 +143,16 @@ public class MenuSteps {
     @Then("Sistem memproses pencarian tanpa error")
     public void sistem_memproses_pencarian_tanpa_error() {
         Assertions.assertFalse(
-            driver.getCurrentUrl().contains("error"),
+            Objects.requireNonNull(driver.getCurrentUrl()).contains("error"),
             "Halaman seharusnya tidak menampilkan error saat pencarian"
         );
     }
 
     // ─── Given (orders page) ───────────────────────────────────────────
 
-    @Given("Customer membuka halaman orders")
-    public void customer_membuka_halaman_orders_dari_menu() {
-        homePage.clickOrdersIcon();
-        try { Thread.sleep(1000); } catch (InterruptedException ignored) {}
-    }
+//    @Given("Customer membuka halaman orders")
+//    public void customer_membuka_halaman_orders_dari_menu() {
+//        homePage.clickOrdersIcon();
+//        try { Thread.sleep(1000); } catch (InterruptedException ignored) {}
+//    }
 }

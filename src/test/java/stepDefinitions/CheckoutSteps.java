@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import pages.CheckoutPage;
 
+import java.util.Objects;
+
 public class CheckoutSteps {
 
     private final WebDriver driver;
@@ -107,7 +109,7 @@ public class CheckoutSteps {
     @Then("Sistem memvalidasi nomor tersebut")
     public void sistem_memvalidasi_nomor() {
         Assertions.assertFalse(
-            driver.getCurrentUrl().contains("error"),
+            Objects.requireNonNull(driver.getCurrentUrl()).contains("error"),
             "Halaman seharusnya tidak crash saat memvalidasi nomor"
         );
     }

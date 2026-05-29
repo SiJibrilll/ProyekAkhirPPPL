@@ -38,17 +38,17 @@ public class EndToEndSteps {
      * Customer membuka URL QR yang sudah di-generate oleh admin.
      * URL diambil dari QRTableSteps.lastGeneratedQRUrl (shared state).
      */
-    @When("Customer membuka URL QR yang di-generate admin")
-    public void customer_membuka_url_qr() {
-        String qrUrl = QRTableSteps.lastGeneratedQRUrl;
-        Assertions.assertNotNull(qrUrl, "URL QR harus sudah di-generate oleh admin terlebih dahulu");
-
-        // Buka URL di tab yang sama (atau bisa di tab baru untuk simulasi device berbeda)
-        homePage.openFromQRUrl(qrUrl);
-
-        // Tunggu halaman menu load
-        try { Thread.sleep(2000); } catch (InterruptedException ignored) {}
-    }
+//    @When("Customer membuka URL QR yang di-generate admin")
+//    public void customer_membuka_url_qr() {
+//        String qrUrl = QRTableSteps.lastGeneratedQRUrl;
+//        Assertions.assertNotNull(qrUrl, "URL QR harus sudah di-generate oleh admin terlebih dahulu");
+//
+//        // Buka URL di tab yang sama (atau bisa di tab baru untuk simulasi device berbeda)
+//        homePage.openFromQRUrl(qrUrl);
+//
+//        // Tunggu halaman menu load
+//        try { Thread.sleep(2000); } catch (InterruptedException ignored) {}
+//    }
 
     @Then("Customer melihat halaman menu dengan nomor meja yang sesuai")
     public void customer_melihat_halaman_menu_dengan_nomor_meja() {
@@ -76,20 +76,15 @@ public class EndToEndSteps {
     }
 
     // ─── Orders → Checkout navigation ──────────────────────────────────
-
-    @When("Customer mengklik tombol Confirm and Proceed ke checkout")
-    public void customer_confirm_and_proceed() {
-        ordersPage.clickProceedToCheckout();
-    }
-
-    @Then("Customer diarahkan ke halaman Checkout")
-    public void customer_diarahkan_ke_checkout() {
-        checkoutPage.waitForUrlContains("/checkout");
-        Assertions.assertTrue(
-            checkoutPage.isOnCheckoutPage(),
-            "Seharusnya diarahkan ke halaman checkout"
-        );
-    }
+//
+//    @Then("Customer diarahkan ke halaman Checkout")
+//    public void customer_diarahkan_ke_checkout() {
+//        checkoutPage.waitForUrlContains("/checkout");
+//        Assertions.assertTrue(
+//            checkoutPage.isOnCheckoutPage(),
+//            "Seharusnya diarahkan ke halaman checkout"
+//        );
+//    }
 
     // ─── Tanpa sesi QR (error state) ───────────────────────────────────
 

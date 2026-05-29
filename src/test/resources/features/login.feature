@@ -8,13 +8,13 @@ Feature: Admin Login
 
   @smoke @login
   Scenario: Login berhasil dengan kredensial valid
-    When Admin memasukkan email "admin@gmail.com" dan password "password123"
+    When Admin memasukkan email "test@example.com" dan password "password"
     And Admin menekan tombol Sign In
     Then Admin berhasil masuk ke halaman dashboard
 
   @regression @login
   Scenario: Login gagal dengan password salah
-    When Admin memasukkan email "admin@gmail.com" dan password "salahpassword"
+    When Admin memasukkan email "test@example.com" dan password "salahpassword"
     And Admin menekan tombol Sign In
     Then Admin melihat pesan error login
 

@@ -9,6 +9,8 @@ import org.openqa.selenium.WebDriver;
 import pages.AdminPage;
 import pages.LoginPage;
 
+import java.util.Objects;
+
 public class LoginSteps {
 
     private final WebDriver driver;
@@ -41,7 +43,7 @@ public class LoginSteps {
     @Then("Admin berhasil masuk ke halaman dashboard")
     public void admin_berhasil_masuk_ke_halaman_dashboard() {
         Assertions.assertTrue(
-            driver.getCurrentUrl().contains("/admin"),
+            Objects.requireNonNull(driver.getCurrentUrl()).contains("/admin"),
             "Seharusnya diarahkan ke halaman admin dashboard setelah login berhasil"
         );
     }
@@ -49,7 +51,7 @@ public class LoginSteps {
     @Then("Admin melihat pesan error login")
     public void admin_melihat_pesan_error_login() {
         Assertions.assertTrue(
-            loginPage.isErrorDisplayed() || driver.getCurrentUrl().contains("/login"),
+            loginPage.isErrorDisplayed() || Objects.requireNonNull(driver.getCurrentUrl()).contains("/login"),
             "Seharusnya muncul pesan error atau tetap di halaman login saat login gagal"
         );
     }
@@ -57,7 +59,7 @@ public class LoginSteps {
     @Then("Form login tidak dapat disubmit")
     public void form_login_tidak_dapat_disubmit() {
         Assertions.assertTrue(
-            driver.getCurrentUrl().contains("/login"),
+            Objects.requireNonNull(driver.getCurrentUrl()).contains("/login"),
             "Seharusnya tetap di halaman login jika email kosong"
         );
     }
