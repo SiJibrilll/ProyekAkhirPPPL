@@ -5,7 +5,7 @@ Feature: Keranjang dan Order List
 
   Background:
     Given Admin sudah login ke panel admin
-    And Admin sudah generate QR untuk meja "4" dengan nama "Cart Test"
+    And Admin sudah generate QR untuk meja "1" dengan nama "Menu Test"
     And Customer membuka URL QR yang di-generate admin
 
   @smoke @cart
@@ -20,14 +20,14 @@ Feature: Keranjang dan Order List
     Given Customer membuka halaman orders
     Then Customer melihat judul halaman "Your Orders"
 
-  @regression @cart
+  @smoke @regression @cart
   Scenario: Customer dapat menutup cart modal tanpa memesan
     When Customer mengklik tombol tambah pada menu pertama
     And Customer mengklik floating cart button
     And Customer menutup cart modal
     Then Cart modal tertutup dan customer tetap di halaman menu
 
-  @regression @orders
+    @smoke @regression @orders
   Scenario: Customer dapat kembali ke menu dari halaman Orders
     Given Customer membuka halaman orders
     When Customer mengklik tombol Add More Items

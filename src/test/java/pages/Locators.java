@@ -64,16 +64,18 @@ public class Locators {
     // ADMIN - QR TABLE PAGE  (/admin/tables)
     // ================================================================
     // Toolbar: pilih meja, nama pelanggan, tombol tambah
-    public static final By QR_TABLE_SELECT = By.cssSelector("select");
-    public static final By QR_CUSTOMER_NAME_INPUT = By.cssSelector("input[placeholder*='nama'], input[placeholder*='Nama']");
-    public static final By QR_TAMBAH_MEJA_BTN = By.xpath("//button[contains(.,'TAMBAH MEJA')]");
+    public static final By QR_TABLE_SELECT = By.xpath("//label[contains(text(), 'PILIH NOMOR MEJA')]/following-sibling::select");
+    public static final By QR_CUSTOMER_NAME_INPUT = By.xpath("//label[contains(text(), 'NAMA PELANGGAN')]/following-sibling::input");
+    public static final By QR_TAMBAH_MEJA_BTN = By.xpath("//button[contains(normalize-space(), 'TAMBAH MEJA')]");
 
     // QR Card hasil generate
     public static final By QR_CARD = By.cssSelector("div.bg-white.rounded-2xl img[alt='QR']");
+    // Locator untuk Link
     public static final By QR_URL_LINK = By.cssSelector("a[href*='token=']");
-    public static final By QR_REGENERATE_BTN = By.xpath("//button[contains(.,'REGENERATE')]");
-    public static final By QR_DOWNLOAD_BTN = By.cssSelector("button svg.lucide-download");
-    ;
+    // Locator untuk Tombol (Diperkuat)
+    public static final By QR_REGENERATE_BTN = By.xpath("//button[contains(normalize-space(), 'REGENERATE')]");
+    public static final By QR_DOWNLOAD_BTN = By.xpath("//button[.//svg[contains(@class, 'lucide-download')]]");
+    // Locator Empty State
     public static final By QR_EMPTY_STATE = By.xpath("//*[contains(text(),'Belum ada meja aktif')]");
 
     // ================================================================

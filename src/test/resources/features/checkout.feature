@@ -21,7 +21,7 @@ Feature: Checkout Pesanan
     When Customer memilih metode pembayaran Non-Cash
     Then Customer melihat informasi pembayaran Midtrans
 
-  @regression @checkout
+  @smoke @regression @checkout
   # Equivalence Partitioning: nama valid (alphabetic)
   Scenario: Customer mengisi form checkout dengan data valid
     When Customer mengisi nama "Budi Santoso"
@@ -29,14 +29,14 @@ Feature: Checkout Pesanan
     And Customer memilih metode pembayaran Cash
     Then Tombol Confirm and Pay dapat diklik
 
-  @regression @checkout
+  @smoke @regression @checkout
   # BVA: nama dengan 1 karakter (batas bawah — terlalu pendek)
   Scenario: Customer mengisi nama dengan hanya 1 karakter
     When Customer mengisi nama "A"
     And Customer memilih metode pembayaran Cash
     Then Sistem menampilkan validasi nama tidak valid
 
-  @regression @checkout
+  @smoke @regression @checkout
   # Equivalence Partitioning: nomor WA invalid (non-numeric)
   Scenario: Customer mengisi nomor WhatsApp dengan karakter non-angka
     When Customer mengisi nama "Budi"
@@ -44,7 +44,7 @@ Feature: Checkout Pesanan
     And Customer memilih metode pembayaran Cash
     Then Sistem menampilkan validasi nomor tidak valid
 
-  @regression @checkout
+   @smoke @regression @checkout
   # BVA: nomor WA dengan 10 digit (batas bawah valid — minimal 10)
   Scenario Outline: Checkout dengan variasi panjang nomor WhatsApp
     When Customer mengisi nama "Budi"

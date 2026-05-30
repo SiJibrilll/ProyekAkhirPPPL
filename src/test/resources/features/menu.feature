@@ -5,7 +5,7 @@ Feature: Katalog Menu
 
   Background:
     Given Admin sudah login ke panel admin
-    And Admin sudah generate QR untuk meja "3" dengan nama "Menu Test"
+    And Admin sudah generate QR untuk meja "1" dengan nama "Menu Test"
     And Customer membuka URL QR yang di-generate admin
 
   @smoke @menu

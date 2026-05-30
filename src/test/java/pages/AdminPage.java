@@ -82,9 +82,18 @@ public class AdminPage extends BasePage {
      * Menggunakan selectByValue karena teks di UI memiliki karakter newline (enter).
      */
     public void selectTableNumber(String tableNumber) {
-        WebElement select = waitForElement(Locators.QR_TABLE_SELECT);
-        // Ubah dari selectByVisibleText menjadi selectByValue
-        new Select(select).selectByValue(tableNumber);
+        // 1. Cari elemen select menggunakan locator yang sudah diperbarui
+        WebElement selectElement = waitForElement(Locators.QR_TABLE_SELECT);
+
+        // 2. Wajib: Tunggu sampai opsi nomor meja (misal value="4") benar-benar muncul di HTML
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.presenceOfNestedElementLocatedBy(
+                selectElement,
+                By.xpath(".//option[@value='" + tableNumber + "']")
+        ));
+
+        // 3. Eksekusi
+        new Select(selectElement).selectByValue(tableNumber);
     }
 
     /**

@@ -25,7 +25,7 @@ Feature: Generate QR Table oleh Admin
     And Admin menekan tombol TAMBAH MEJA
     Then URL QR mengandung parameter token dan nomor meja
 
-  @regression @qr
+   @smoke @regression @qr
   # Equivalence Partitioning: nama pelanggan kosong (invalid class)
   Scenario: Admin mencoba generate QR tanpa mengisi nama pelanggan
     When Admin memilih nomor meja "3"
@@ -33,7 +33,7 @@ Feature: Generate QR Table oleh Admin
     And Admin menekan tombol TAMBAH MEJA
     Then Sistem menampilkan peringatan nama pelanggan harus diisi
 
-  @regression @qr
+   @smoke @regression @qr
   # Equivalence Partitioning: meja belum dipilih (invalid class)
   Scenario: Admin mencoba generate QR tanpa memilih nomor meja
     When Admin tidak memilih nomor meja
@@ -41,7 +41,7 @@ Feature: Generate QR Table oleh Admin
     And Admin menekan tombol TAMBAH MEJA
     Then Sistem menampilkan peringatan pilih nomor meja
 
-  @regression @qr
+   @smoke @regression @qr
   Scenario: Admin dapat melakukan regenerate QR untuk meja yang sudah aktif
     When Admin memilih nomor meja "1"
     And Admin mengisi nama pelanggan "Customer Baru"

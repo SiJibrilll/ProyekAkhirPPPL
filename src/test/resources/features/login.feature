@@ -12,26 +12,26 @@ Feature: Admin Login
     And Admin menekan tombol Sign In
     Then Admin berhasil masuk ke halaman dashboard
 
-  @regression @login
+   @smoke  @regression @login
   Scenario: Login gagal dengan password salah
     When Admin memasukkan email "test@example.com" dan password "salahpassword"
     And Admin menekan tombol Sign In
     Then Admin melihat pesan error login
 
-  @regression @login
+   @smoke @regression @login
   Scenario: Login gagal dengan email tidak terdaftar
     When Admin memasukkan email "tidakada@gmail.com" dan password "password123"
     And Admin menekan tombol Sign In
     Then Admin melihat pesan error login
 
-  @regression @login
+   @smoke @regression @login
   # Equivalence Partitioning: email kosong (invalid class)
   Scenario: Login gagal dengan email kosong
     When Admin memasukkan email "" dan password "password123"
     And Admin menekan tombol Sign In
     Then Form login tidak dapat disubmit
 
-  @regression @login
+   @smoke @regression @login
   # BVA: password dengan 1 karakter (batas bawah — terlalu pendek)
   Scenario: Login gagal dengan password terlalu pendek
     When Admin memasukkan email "admin@gmail.com" dan password "a"
