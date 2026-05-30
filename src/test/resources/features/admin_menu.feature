@@ -17,32 +17,41 @@ Feature: Admin Manajemen Menu
     And Admin mengklik tombol tambah menu
     Then Admin melihat form input menu baru
 
-  @regression @admin
+  @smoke @regression @admin
   # Equivalence Partitioning: harga valid (angka positif)
   Scenario: Admin berhasil menambah menu dengan data valid
     When Admin membuka halaman manajemen menu
     And Admin mengklik tombol tambah menu
     And Admin mengisi nama menu "Es Teh Manis Test"
+    And Admin mengisi deskripsi menu "Apalah"
+    And Admin memilih kategori menu "Beverages"
     And Admin mengisi harga menu "15000"
+    And Admin mengunggah gambar menu "src/test/resources/gambar/esteh.jpg"
     And Admin menyimpan menu
     Then Menu baru berhasil ditambahkan ke daftar
 
-  @regression @admin
+  @smoke @regression @admin
   # BVA: harga 0 (batas bawah tidak valid — harga tidak boleh 0)
   Scenario: Admin mencoba menambah menu dengan harga 0
     When Admin membuka halaman manajemen menu
     And Admin mengklik tombol tambah menu
     And Admin mengisi nama menu "Menu Test Harga Nol"
+    And Admin memilih kategori menu "Main Courses"
+    And Admin mengisi deskripsi menu "Apalah"
     And Admin mengisi harga menu "0"
+    And Admin mengunggah gambar menu "src/test/resources/gambar/esteh.jpg"
     And Admin menyimpan menu
     Then Sistem menampilkan validasi harga tidak valid
 
-  @regression @admin
+  @smoke @regression @admin
   # Equivalence Partitioning: nama menu kosong (invalid class)
   Scenario: Admin mencoba menambah menu tanpa nama
     When Admin membuka halaman manajemen menu
     And Admin mengklik tombol tambah menu
     And Admin mengisi nama menu ""
+    And Admin memilih kategori menu "Main Courses"
+    And Admin mengisi deskripsi menu "Apalah"
     And Admin mengisi harga menu "25000"
+    And Admin mengunggah gambar menu "src/test/resources/gambar/esteh.jpg"
     And Admin menyimpan menu
     Then Sistem menampilkan validasi nama menu tidak boleh kosong

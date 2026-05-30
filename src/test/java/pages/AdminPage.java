@@ -3,8 +3,12 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+import java.time.Duration;
 import java.util.List;
 
 /**
@@ -13,14 +17,14 @@ import java.util.List;
  */
 public class AdminPage extends BasePage {
 
-    public static final String BASE_URL        = "https://resto-kita.vercel.app";
-    public static final String ADMIN_URL        = BASE_URL + "/admin";
-    public static final String ADMIN_LOGIN_URL  = BASE_URL + "/login";
-    public static final String ADMIN_MENU_URL   = BASE_URL + "/admin/menu";
+    public static final String BASE_URL = "https://resto-kita.vercel.app";
+    public static final String ADMIN_URL = BASE_URL + "/admin";
+    public static final String ADMIN_LOGIN_URL = BASE_URL + "/login";
+    public static final String ADMIN_MENU_URL = BASE_URL + "/admin/menu";
     public static final String ADMIN_TABLES_URL = BASE_URL + "/admin/tables";
 
     // Kredensial admin
-    public static final String ADMIN_EMAIL    = "test@example.com";
+    public static final String ADMIN_EMAIL = "test@example.com";
     public static final String ADMIN_PASSWORD = "password";
 
     public AdminPage(WebDriver driver) {
@@ -73,22 +77,33 @@ public class AdminPage extends BasePage {
      * Memilih nomor meja dari dropdown di halaman Generate QR Table.
      * Dropdown menggunakan <select> dengan option berupa "Meja X".
      */
+    /**
+     * Memilih nomor meja dari dropdown di halaman Generate QR Table.
+     * Menggunakan selectByValue karena teks di UI memiliki karakter newline (enter).
+     */
     public void selectTableNumber(String tableNumber) {
         WebElement select = waitForElement(Locators.QR_TABLE_SELECT);
-        new Select(select).selectByVisibleText("Meja " + tableNumber);
+        // Ubah dari selectByVisibleText menjadi selectByValue
+        new Select(select).selectByValue(tableNumber);
     }
 
-    /** Mengisi nama pelanggan pada form generate QR */
+    /**
+     * Mengisi nama pelanggan pada form generate QR
+     */
     public void enterCustomerName(String name) {
         inputText(Locators.QR_CUSTOMER_NAME_INPUT, name);
     }
 
-    /** Klik tombol TAMBAH MEJA untuk generate QR */
+    /**
+     * Klik tombol TAMBAH MEJA untuk generate QR
+     */
     public void clickTambahMeja() {
         click(Locators.QR_TAMBAH_MEJA_BTN);
     }
 
-    /** Mengecek apakah QR card tampil setelah generate */
+    /**
+     * Mengecek apakah QR card tampil setelah generate
+     */
     public boolean isQRCardDisplayed() {
         return isDisplayed(Locators.QR_CARD);
     }
@@ -127,8 +142,36 @@ public class AdminPage extends BasePage {
         inputText(Locators.ADMIN_MENU_NAME_INPUT, name);
     }
 
+    public void enterMenuDescription(String description) {
+        inputText(Locators.ADMIN_DESKRIPSI_NAME_INPUT, description);
+    }
+
+    public void enterMenuKategori(String kategoriText) {
+        // 1. Buat Explicit Wait khusus untuk menunggu elemen aktif (maksimal tunggu 10 detik)
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        // 2. Tunggu sampai dropdown kategori berstatus CLICKABLE (tidak disabled)
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(Locators.ADMIN_KATEGORI_SELECT));
+
+        // 3. Setelah aktif, baru lakukan inisiasi Select dan pilih teksnya
+        org.openqa.selenium.support.ui.Select dropdown = new org.openqa.selenium.support.ui.Select(element);
+        dropdown.selectByVisibleText(kategoriText);
+    }
+
     public void enterMenuPrice(String price) {
         inputText(Locators.ADMIN_MENU_PRICE_INPUT, price);
+    }
+
+    /**
+     * Mengunggah gambar dengan mengirimkan path file ke input type="file"
+     */
+    public void uploadGambarMenu(String relativeFilePath) {
+        // Mengubah path relatif (misal: src/test/resources/image.jpg) menjadi path absolut
+        File file = new File(relativeFilePath);
+        String absolutePath = file.getAbsolutePath();
+
+        // Kirim path langsung ke elemen input, TANPA perlu diklik
+        driver.findElement(Locators.ADMIN_MENU_IMAGE_INPUT).sendKeys(absolutePath);
     }
 
     public void clickSaveMenu() {

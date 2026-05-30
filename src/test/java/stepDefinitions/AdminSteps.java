@@ -58,9 +58,20 @@ public class AdminSteps {
         adminPage.enterMenuName(name);
     }
 
+    @And("Admin mengisi deskripsi menu {string}")
+    public void admin_mengisi_deskripsi_menu(String description) {adminPage.enterMenuDescription(description);}
+
+    @And("Admin memilih kategori menu {string}")
+    public void admin_mengisi_kategori_menu(String category) {adminPage.enterMenuKategori( category);}
+
     @And("Admin mengisi harga menu {string}")
     public void admin_mengisi_harga_menu(String price) {
         adminPage.enterMenuPrice(price);
+    }
+
+    @And("Admin mengunggah gambar menu {string}")
+    public void admin_mengunggah_gambar_menu(String filePath) {
+        adminPage.uploadGambarMenu(filePath);
     }
 
     @And("Admin menyimpan menu")
