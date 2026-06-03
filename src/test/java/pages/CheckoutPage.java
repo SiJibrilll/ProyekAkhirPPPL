@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 
 /**
  * CheckoutPage merepresentasikan halaman checkout Resto Kita (/checkout).
- * Berisi form nama & WhatsApp, order summary, pilihan pembayaran, dan Confirm & Pay.
+ * Berisi form nama & Nomor Meja (Readonly), order summary, pilihan pembayaran, dan Confirm & Pay.
  */
 public class CheckoutPage extends BasePage {
 
@@ -26,12 +26,14 @@ public class CheckoutPage extends BasePage {
         return getText(Locators.CHECKOUT_TITLE);
     }
 
-    public void enterName(String name) {
-        inputText(Locators.CHECKOUT_NAME_INPUT, name);
+    public String getPreFilledName() {
+        // Menggunakan getDomProperty versi Selenium 4 untuk membaca element readonly
+        return driver.findElement(Locators.CHECKOUT_NAME_INPUT).getDomProperty("value");
     }
 
-    public void enterPhone(String phone) {
-        inputText(Locators.CHECKOUT_PHONE_INPUT, phone);
+    public String getPreFilledTableNumber() {
+        // Menggunakan getDomProperty versi Selenium 4 untuk membaca element readonly
+        return driver.findElement(Locators.CHECKOUT_TABLE_INPUT).getDomProperty("value");
     }
 
     public void selectCashPayment() {

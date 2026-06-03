@@ -94,23 +94,27 @@ public class Locators {
     // ORDERS PAGE  (/orders)
     // ================================================================
     public static final By ORDERS_PAGE_TITLE = By.cssSelector("main h1");
-    public static final By ORDERS_CARD_LIST = By.cssSelector("div.bg-white.rounded-3xl");
+    // Sesuaikan kembali card list ini jika ternyata ringkasan total ikut terambil
+    public static final By ORDERS_CARD_LIST = By.cssSelector("main div.flex.flex-col.gap-4 > div.rounded-3xl");
     public static final By ORDERS_TOTAL_LABEL = By.xpath("//div[contains(@class,'font-black')]//span[text()='Total']");
     public static final By ORDERS_ADD_MORE_BTN = By.xpath("//button[contains(.,'Add More Items')]");
-    public static final By ORDERS_PROCEED_BTN = By.xpath("//button[contains(.,'Confirm') and contains(.,'Proceed')]");
-    public static final By ORDERS_EMPTY_MSG = By.xpath("//*[contains(text(),'Belum ada pesanan')]");
+    // FIX: Menghapus kondisi 'Confirm' yang bikin error
+    public static final By ORDERS_PROCEED_BTN = By.xpath("//button[contains(.,'Proceed Checkout')]");
+    public static final By ORDERS_EMPTY_MSG = By.xpath("//p[contains(.,'Belum ada pesanan')]");
 
     // ================================================================
     // CHECKOUT PAGE  (/checkout)
     // ================================================================
     public static final By CHECKOUT_TITLE = By.cssSelector("main h1");
-    public static final By CHECKOUT_NAME_INPUT = By.cssSelector("input[name='name'], input[placeholder*='Nama'], input[placeholder*='nama']");
-    public static final By CHECKOUT_PHONE_INPUT = By.cssSelector("input[type='tel'], input[name='phone'], input[placeholder*='WhatsApp']");
+    // FIX: Menggunakan relasi dari Label karena input tidak punya name/placeholder
+    public static final By CHECKOUT_NAME_INPUT = By.xpath("//label[contains(.,'Nama Lengkap')]/following-sibling::input");
+    public static final By CHECKOUT_TABLE_INPUT = By.xpath("//label[contains(.,'Nomor Meja')]/following-sibling::input"); // Contoh jika ingin ambil Nomor Meja
+
     public static final By CHECKOUT_CASH_BTN = By.xpath("//button[contains(.,'Cash') or contains(.,'Tunai')]");
     public static final By CHECKOUT_NONCASH_BTN = By.xpath("//button[contains(.,'Non Cash') or contains(.,'Non-Cash') or contains(.,'non_cash')]");
     public static final By CHECKOUT_TAX_ROW = By.xpath("//*[contains(text(),'Tax') or contains(text(),'Pajak')]");
     public static final By CHECKOUT_TOTAL = By.xpath("//div[contains(@class,'font-black')]//span[last()]");
-    public static final By CHECKOUT_CONFIRM_BTN = By.xpath("//button[contains(.,'Confirm') and contains(.,'Pay')]");
-    public static final By CHECKOUT_ORDER_SUMMARY = By.xpath("//*[contains(text(),'Order Summary')]");
+    public static final By CHECKOUT_CONFIRM_BTN = By.xpath("//button[contains(.,'Confirm & Pay')]");
+    public static final By CHECKOUT_ORDER_SUMMARY = By.xpath("//h2[contains(.,'Order Summary')]");
     public static final By CHECKOUT_MIDTRANS_INFO = By.xpath("//*[contains(text(),'Midtrans')]");
 }

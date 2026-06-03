@@ -5,10 +5,9 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.By; // Ditambahkan untuk mendeteksi elemen secara langsung
 import org.openqa.selenium.WebDriver;
 import pages.CheckoutPage;
-
-import java.util.Objects;
 
 public class CheckoutSteps {
 
@@ -25,6 +24,19 @@ public class CheckoutSteps {
         checkoutPage.open();
         try { Thread.sleep(1500); } catch (InterruptedException ignored) {}
     }
+
+    // =========================================================================
+    // FIX: Menambahkan Step yang Undefined / Hilang dari Log Error
+    // =========================================================================
+    @When("Customer mengklik tombol Proceed Checkout ke checkout")
+    public void customer_mengklik_tombol_proceed_checkout_ke_checkout() {
+        // Mencari tombol yang mengandung teks 'Checkout' atau 'Proceed' secara dinamis
+        driver.findElement(By.xpath("//button[contains(.,'Checkout') or contains(.,'Proceed')]")).click();
+        try {
+            Thread.sleep(1500); // Jeda pelonggaran agar halaman checkout termuat sempurna
+        } catch (InterruptedException ignored) {}
+    }
+    // =========================================================================
 
     @Then("Customer melihat form checkout dengan order summary")
     public void customer_melihat_form_checkout() {
@@ -44,6 +56,20 @@ public class CheckoutSteps {
             checkoutPage.isTaxDisplayed(),
             "Baris Tax Charge 10% seharusnya tampil di halaman checkout"
         );
+    }
+
+    @And("Form nama harus otomatis terisi dengan {string}")
+    public void form_nama_harus_otomatis_terisi_dengan(String expectedName) {
+        String actualName = checkoutPage.getPreFilledName();
+        Assertions.assertEquals(expectedName, actualName,
+            "Nama di halaman checkout tidak sesuai dengan data dari admin!");
+    }
+
+    @And("Form nomor meja harus otomatis terisi dengan {string}")
+    public void form_nomor_meja_harus_otomatis_terisi_dengan(String expectedTable) {
+        String actualTable = checkoutPage.getPreFilledTableNumber();
+        Assertions.assertEquals(expectedTable, actualTable,
+            "Nomor meja di halaman checkout tidak sesuai dengan data dari admin!");
     }
 
     @When("Customer memilih metode pembayaran Cash")
@@ -69,48 +95,6 @@ public class CheckoutSteps {
         Assertions.assertTrue(
             checkoutPage.isDisplayed(pages.Locators.CHECKOUT_CONFIRM_BTN),
             "Tombol Confirm & Pay seharusnya tetap tampil setelah pilih Non-Cash"
-        );
-    }
-
-    @When("Customer mengisi nama {string}")
-    public void customer_mengisi_nama(String name) {
-        checkoutPage.enterName(name);
-    }
-
-    @And("Customer mengisi nomor WhatsApp {string}")
-    public void customer_mengisi_nomor_wa(String phone) {
-        checkoutPage.enterPhone(phone);
-    }
-
-    @Then("Tombol Confirm and Pay dapat diklik")
-    public void tombol_confirm_pay_dapat_diklik() {
-        Assertions.assertTrue(
-            checkoutPage.isDisplayed(pages.Locators.CHECKOUT_CONFIRM_BTN),
-            "Tombol Confirm & Pay seharusnya aktif dengan data yang valid"
-        );
-    }
-
-    @Then("Sistem menampilkan validasi nama tidak valid")
-    public void validasi_nama_tidak_valid() {
-        Assertions.assertTrue(
-            checkoutPage.isOnCheckoutPage(),
-            "Seharusnya tetap di halaman checkout saat validasi nama gagal"
-        );
-    }
-
-    @Then("Sistem menampilkan validasi nomor tidak valid")
-    public void validasi_nomor_tidak_valid() {
-        Assertions.assertTrue(
-            checkoutPage.isOnCheckoutPage(),
-            "Seharusnya tetap di halaman checkout saat nomor WA tidak valid"
-        );
-    }
-
-    @Then("Sistem memvalidasi nomor tersebut")
-    public void sistem_memvalidasi_nomor() {
-        Assertions.assertFalse(
-            Objects.requireNonNull(driver.getCurrentUrl()).contains("error"),
-            "Halaman seharusnya tidak crash saat memvalidasi nomor"
         );
     }
 }
