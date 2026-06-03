@@ -5,7 +5,6 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.By; // Ditambahkan untuk mendeteksi elemen secara langsung
 import org.openqa.selenium.WebDriver;
 import pages.CheckoutPage;
 
@@ -24,19 +23,6 @@ public class CheckoutSteps {
         checkoutPage.open();
         try { Thread.sleep(1500); } catch (InterruptedException ignored) {}
     }
-
-    // =========================================================================
-    // FIX: Menambahkan Step yang Undefined / Hilang dari Log Error
-    // =========================================================================
-    @When("Customer mengklik tombol Proceed Checkout ke checkout")
-    public void customer_mengklik_tombol_proceed_checkout_ke_checkout() {
-        // Mencari tombol yang mengandung teks 'Checkout' atau 'Proceed' secara dinamis
-        driver.findElement(By.xpath("//button[contains(.,'Checkout') or contains(.,'Proceed')]")).click();
-        try {
-            Thread.sleep(1500); // Jeda pelonggaran agar halaman checkout termuat sempurna
-        } catch (InterruptedException ignored) {}
-    }
-    // =========================================================================
 
     @Then("Customer melihat form checkout dengan order summary")
     public void customer_melihat_form_checkout() {

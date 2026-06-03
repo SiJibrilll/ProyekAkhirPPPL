@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import pages.AdminPage;
 
+import java.util.Objects;
+
 public class AdminSteps {
 
     private final WebDriver driver;
@@ -82,7 +84,7 @@ public class AdminSteps {
     @Then("Menu baru berhasil ditambahkan ke daftar")
     public void menu_berhasil_ditambahkan() {
         Assertions.assertTrue(
-            adminPage.isMenuTableDisplayed() || driver.getCurrentUrl().contains("/admin/menu"),
+            adminPage.isMenuTableDisplayed() || Objects.requireNonNull(driver.getCurrentUrl()).contains("/admin/menu"),
             "Seharusnya kembali ke halaman list menu setelah berhasil tambah menu"
         );
     }
@@ -90,7 +92,7 @@ public class AdminSteps {
     @Then("Sistem menampilkan validasi harga tidak valid")
     public void validasi_harga_tidak_valid() {
         Assertions.assertTrue(
-            driver.getCurrentUrl().contains("/tambah") ||
+            Objects.requireNonNull(driver.getCurrentUrl()).contains("/tambah") ||
             adminPage.isDisplayed(pages.Locators.ADMIN_MENU_PRICE_INPUT),
             "Seharusnya tetap di form tambah menu saat harga tidak valid"
         );
@@ -99,7 +101,7 @@ public class AdminSteps {
     @Then("Sistem menampilkan validasi nama menu tidak boleh kosong")
     public void validasi_nama_menu_kosong() {
         Assertions.assertTrue(
-            driver.getCurrentUrl().contains("/tambah") ||
+            Objects.requireNonNull(driver.getCurrentUrl()).contains("/tambah") ||
             adminPage.isDisplayed(pages.Locators.ADMIN_MENU_NAME_INPUT),
             "Seharusnya tetap di form tambah menu saat nama kosong"
         );
