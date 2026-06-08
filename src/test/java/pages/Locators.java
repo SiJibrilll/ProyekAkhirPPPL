@@ -117,4 +117,37 @@ public class Locators {
     public static final By CHECKOUT_CONFIRM_BTN = By.xpath("//button[contains(.,'Confirm & Pay')]");
     public static final By CHECKOUT_ORDER_SUMMARY = By.xpath("//h2[contains(.,'Order Summary')]");
     public static final By CHECKOUT_MIDTRANS_INFO = By.xpath("//*[contains(text(),'Midtrans')]");
+
+    // ================================================================
+    // ADMIN - EMPLOYEES MANAGEMENT  (/admin/employees)
+    // ================================================================
+    public static final By ADMIN_EMPLOYEES_TABLE = By.tagName("table");
+    public static final By ADMIN_ADD_EMPLOYEE_BTN = By.xpath("//button[contains(., 'Tambah Karyawan Baru')]");
+
+    // Form inputs untuk halaman tambah/edit karyawan
+    public static final By ADMIN_EMPLOYEE_NAME_INPUT = By.xpath("//label[contains(text(), 'NAMA LENGKAP')]/following-sibling::input");
+    public static final By ADMIN_EMPLOYEE_USERNAME_INPUT = By.xpath("//label[contains(text(), 'USERNAME')]/following-sibling::input");
+    public static final By ADMIN_EMPLOYEE_EMAIL_INPUT = By.xpath("//label[contains(text(), 'EMAIL')]/following-sibling::input");
+    public static final By ADMIN_EMPLOYEE_PASSWORD_INPUT = By.xpath("//label[contains(text(), 'PASSWORD')]/following-sibling::input");
+    public static final By ADMIN_EMPLOYEE_PHONE_INPUT = By.xpath("//label[contains(text(), 'NOMOR TELEPON')]/following-sibling::div//input");
+
+    // Buttons untuk form
+    public static final By ADMIN_EMPLOYEE_SAVE_BTN = By.xpath("//button[contains(text(), 'Simpan Karyawan') or contains(text(), 'Perbarui Data')]");
+    public static final By ADMIN_EMPLOYEE_CANCEL_BTN = By.xpath("//button[contains(text(), 'Batal')]");
+    public static final By ADMIN_EMPLOYEE_DELETE_BTN = By.xpath("//button[contains(text(), 'Hapus Karyawan')]");
+
+    // Action buttons dalam tabel
+    public static final By ADMIN_EMPLOYEE_CHANGE_PASSWORD_BTN = By.xpath("//button[@title='Ganti Password']");
+    public static final By ADMIN_EMPLOYEE_EDIT_BTN = By.xpath("//button[@title='Edit']");
+    public static final By ADMIN_EMPLOYEE_DELETE_FROM_TABLE_BTN = By.xpath("//button[@title='Hapus']");
+    public static final By ADMIN_EMPLOYEE_CONFIRM_DELETE_BTN = By.xpath("//button[contains(text(), 'Hapus') and not(@title)]");
+
+    // Change password form
+    public static final By ADMIN_EMPLOYEE_OLD_PASSWORD_INPUT = By.xpath("//label[contains(text(), 'PASSWORD LAMA')]/following-sibling::input");
+    public static final By ADMIN_EMPLOYEE_NEW_PASSWORD_INPUT = By.xpath("//label[contains(text(), 'PASSWORD BARU')]/following-sibling::input");
+    public static final By ADMIN_EMPLOYEE_CONFIRM_PASSWORD_INPUT = By.xpath("//label[contains(text(), 'KONFIRMASI PASSWORD BARU')]/following-sibling::input");
+    public static final By ADMIN_EMPLOYEE_SAVE_PASSWORD_BTN = By.xpath("//button[contains(text(), 'Simpan Perubahan')]");
+
+    // Validation errors
+    public static final By EMPLOYEE_VALIDATION_ERROR = By.cssSelector(".text-red-500, .text-red-600, [class*='error']");
 }

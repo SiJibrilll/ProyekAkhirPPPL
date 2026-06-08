@@ -22,6 +22,7 @@ public class AdminPage extends BasePage {
     public static final String ADMIN_LOGIN_URL = BASE_URL + "/login";
     public static final String ADMIN_MENU_URL = BASE_URL + "/admin/menu";
     public static final String ADMIN_TABLES_URL = BASE_URL + "/admin/tables";
+    public static final String ADMIN_EMPLOYEES_URL = BASE_URL + "/admin/employees";
 
     // Kredensial admin
     public static final String ADMIN_EMAIL = "test@example.com";
@@ -189,5 +190,92 @@ public class AdminPage extends BasePage {
 
     public boolean isMenuTableDisplayed() {
         return isDisplayed(Locators.ADMIN_MENU_TABLE);
+    }
+
+    // ─── Employees Management ──────────────────────────────────────────
+
+    public void openEmployeesManagement() {
+        driver.get(ADMIN_EMPLOYEES_URL);
+    }
+
+    public void clickAddEmployeeButton() {
+        click(Locators.ADMIN_ADD_EMPLOYEE_BTN);
+    }
+
+    public void enterEmployeeName(String name) {
+        inputText(Locators.ADMIN_EMPLOYEE_NAME_INPUT, name);
+    }
+
+    public void enterEmployeeUsername(String username) {
+        inputText(Locators.ADMIN_EMPLOYEE_USERNAME_INPUT, username);
+    }
+
+    public void enterEmployeeEmail(String email) {
+        inputText(Locators.ADMIN_EMPLOYEE_EMAIL_INPUT, email);
+    }
+
+    public void enterEmployeePassword(String password) {
+        inputText(Locators.ADMIN_EMPLOYEE_PASSWORD_INPUT, password);
+    }
+
+    public void enterEmployeePhone(String phone) {
+        inputText(Locators.ADMIN_EMPLOYEE_PHONE_INPUT, phone);
+    }
+
+    public void clickSaveEmployee() {
+        click(Locators.ADMIN_EMPLOYEE_SAVE_BTN);
+    }
+
+    public void clickCancelEmployee() {
+        click(Locators.ADMIN_EMPLOYEE_CANCEL_BTN);
+    }
+
+    public void clickChangePasswordEmployee() {
+        click(Locators.ADMIN_EMPLOYEE_CHANGE_PASSWORD_BTN);
+    }
+
+    public void clickEditEmployee() {
+        click(Locators.ADMIN_EMPLOYEE_EDIT_BTN);
+    }
+
+    public void clickDeleteEmployeeFromTable() {
+        click(Locators.ADMIN_EMPLOYEE_DELETE_FROM_TABLE_BTN);
+    }
+
+    public void confirmDeleteEmployee() {
+        click(Locators.ADMIN_EMPLOYEE_CONFIRM_DELETE_BTN);
+    }
+
+    public void enterOldPassword(String password) {
+        inputText(Locators.ADMIN_EMPLOYEE_OLD_PASSWORD_INPUT, password);
+    }
+
+    public void enterNewPassword(String password) {
+        inputText(Locators.ADMIN_EMPLOYEE_NEW_PASSWORD_INPUT, password);
+    }
+
+    public void enterConfirmPassword(String password) {
+        inputText(Locators.ADMIN_EMPLOYEE_CONFIRM_PASSWORD_INPUT, password);
+    }
+
+    public void clickSavePasswordChange() {
+        click(Locators.ADMIN_EMPLOYEE_SAVE_PASSWORD_BTN);
+    }
+
+    public boolean isEmployeeTableDisplayed() {
+        return isDisplayed(Locators.ADMIN_EMPLOYEES_TABLE);
+    }
+
+    public boolean isEmployeeFormDisplayed() {
+        return isDisplayed(Locators.ADMIN_EMPLOYEE_NAME_INPUT);
+    }
+
+    public boolean isValidationErrorDisplayed() {
+        return isDisplayed(Locators.EMPLOYEE_VALIDATION_ERROR);
+    }
+
+    public String getValidationErrorMessage() {
+        WebElement errorElement = driver.findElement(Locators.EMPLOYEE_VALIDATION_ERROR);
+        return errorElement.getText();
     }
 }
