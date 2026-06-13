@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -277,5 +278,81 @@ public class AdminPage extends BasePage {
     public String getValidationErrorMessage() {
         WebElement errorElement = driver.findElement(Locators.EMPLOYEE_VALIDATION_ERROR);
         return errorElement.getText();
+    }
+
+    // ─── Payment Confirmation ──────────────────────────────────────────
+
+    public static final String ADMIN_PAYMENT_URL = BASE_URL + "/admin/payment-confirmation";
+
+    public void openPaymentConfirmation() {
+        driver.get(ADMIN_PAYMENT_URL);
+    }
+
+    public boolean isOnPaymentPage() {
+        return getCurrentUrl().contains("payment-confirmation");
+    }
+
+    public void waitForPaymentTableToLoad() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(Locators.PAYMENT_TABLE_ROWS));
+    }
+
+    public int getPaymentRowCount() {
+        return driver.findElements(Locators.PAYMENT_TABLE_ROWS).size();
+    }
+
+    private By getExactUnconfirmedButtonLocator() {
+        return By.xpath("//button[@title='Konfirmasi Pembayaran']");
+    }
+
+    public boolean hasUnconfirmedPayment() {
+        try {
+            List<WebElement> unconfirmed = driver.findElements(getExactUnconfirmedButtonLocator());
+            return !unconfirmed.isEmpty() && unconfirmed.get(0).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public void clickFirstUnconfirmedPaymentButton() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement btn;
+        try {
+            btn = wait.until(ExpectedConditions.presenceOfElementLocated(getExactUnconfirmedButtonLocator()));
+
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", btn);
+        } catch (Exception e) {
+            throw new RuntimeException("Selenium gagal mendeteksi tombol dengan title 'Konfirmasi Pembayaran': " + e.getMessage());
+        }
+        try {
+            org.openqa.selenium.interactions.Actions actions = new org.openqa.selenium.interactions.Actions(driver);
+            actions.moveToElement(btn).click().perform();
+        } catch (Exception e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", btn);
+        }
+        handleConfirmationModal();
+    }
+
+    private void handleConfirmationModal() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            By backupModalXpath = By.xpath(
+                    "//button[contains(., 'Ya') or contains(., 'Konfirmasi') or contains(., 'Selesai')] | " +
+                            "//div[@role='button' and (contains(., 'Ya') or contains(., 'Konfirmasi'))] | " +
+                            "//*[contains(@class, 'modal')]//button"
+            );
+            WebElement confirmBtn = wait.until(ExpectedConditions.elementToBeClickable(backupModalXpath));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", confirmBtn);
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", confirmBtn);
+            try {
+                wait.until(ExpectedConditions.invisibilityOf(confirmBtn));
+            } catch (Exception ignored) {}
+        } catch (Exception e) {
+            throw new RuntimeException("Gagal menyelesaikan konfirmasi pada modal: " + e.getMessage());
+        }
+    }
+
+    public void clickRefreshPaymentData() {
+        click(Locators.PAYMENT_REFRESH_BTN);
     }
 }

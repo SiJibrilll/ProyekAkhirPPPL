@@ -150,4 +150,28 @@ public class Locators {
 
     // Validation errors
     public static final By EMPLOYEE_VALIDATION_ERROR = By.cssSelector(".text-red-500, .text-red-600, [class*='error']");
+
+    // ================================================================
+    // ADMIN - PAYMENT CONFIRMATION PAGE  (/admin/payment-confirmation)
+    // ================================================================
+    public static final By PAYMENT_PAGE_TITLE = By.cssSelector("main h1, h1");
+    public static final By PAYMENT_TABLE_ROWS = By.cssSelector("table tbody tr, div[class*='table'] div[class*='row']");
+
+    // Tombol centang yang belum dikonfirmasi (abu-abu / outline)
+    public static final By PAYMENT_UNCONFIRMED_BTN = By.xpath("//button[.//svg[contains(@class,'lucide-circle-check') or contains(@class,'check')] and not(contains(@class,'text-green')) and not(contains(@class,'bg-green'))]");
+
+    // Semua tombol aksi di kolom AKSI
+    public static final By PAYMENT_ALL_ACTION_BTNS = By.xpath("//table//button | //div[contains(@class,'table')]//button[contains(@class,'action')]");
+
+    // Tombol yang sudah berstatus hijau (konfirmasi berhasil)
+    public static final By PAYMENT_CONFIRMED_BTN = By.xpath("//button[contains(@class,'text-green') or contains(@class,'bg-green') or .//svg[contains(@class,'text-green')]]");
+
+    // Baris pertama di tabel pembayaran
+    public static final By PAYMENT_FIRST_ROW_ACTION_BTN = By.xpath("(//table//tr[td])[1]//button | (//tbody//tr)[1]//button");
+
+    // Pesan sukses
+    public static final By PAYMENT_SUCCESS_TOAST = By.xpath("//*[contains(@class,'toast') or contains(@class,'alert') or contains(@class,'success') or contains(@class,'Toastify')]");
+
+    // Refresh data button
+    public static final By PAYMENT_REFRESH_BTN = By.xpath("//button[contains(normalize-space(),'Refresh Data') or contains(normalize-space(),'Refresh')]");
 }
